@@ -10,6 +10,8 @@ public class app {
         tree.inserir(6);
         tree.inserir(7);
 
-        tree.levelOrderTraversal();
+        tree.passeioPorNivel();
+
+        tree.passeioEmOrdem();
     }
 }

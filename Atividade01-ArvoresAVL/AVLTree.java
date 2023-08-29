@@ -5,27 +5,31 @@ public class AVLTree<T extends Comparable<T>> {
         this.raiz = null;
     }
 
-    public void levelOrderTraversal() {
-        if (raiz == null) {
+    private boolean isEmpty(){
+        return raiz == null;
+    }
+
+    public void passeioPorNivel() {
+        if (isEmpty()) {
             return;
         }
 
         int treeHeight = getHeight(raiz);
         for (int level = 0; level <= treeHeight; level++) {
-            printNodesAtLevel(raiz, level);
+            printNodesAtNivel(raiz, level);
             System.out.println();
         }
     }
 
-    private void printNodesAtLevel(AVLNode<T> node, int level) {
+    private void printNodesAtNivel(AVLNode<T> node, int level) {
         if (node == null) {
             return;
         }
         if (level == 0) {
             System.out.print(node.getInfo() + "(" + getLevel(raiz, node, 0) + ") ");
         } else {
-            printNodesAtLevel(node.getLeft(), level - 1);
-            printNodesAtLevel(node.getRight(), level - 1);
+            printNodesAtNivel(node.getLeft(), level - 1);
+            printNodesAtNivel(node.getRight(), level - 1);
         }
     }
 
@@ -109,6 +113,19 @@ public class AVLTree<T extends Comparable<T>> {
         updateBalanceFactor(node);
         updateBalanceFactor(novaRaiz);
         return novaRaiz;
+    }
+
+    public void passeioEmOrdem() {
+        passeioEmOrdem(raiz);
+        System.out.println(); // Pula uma linha após o passeio em ordem
+    }
+
+    private void passeioEmOrdem(AVLNode<T> node) {
+        if (node != null) {
+            passeioEmOrdem(node.getLeft());
+            System.out.print(node.getInfo() + " ");
+            passeioEmOrdem(node.getRight());
+        }
     }
 
 }
