@@ -5,7 +5,7 @@ public class AVLTree<T extends Comparable<T>> {
         this.raiz = null;
     }
 
-    private boolean isEmpty(){
+    private boolean isEmpty() {
         return raiz == null;
     }
 
@@ -128,6 +128,41 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    public void remove(T value) {
+        raiz = remove(raiz, value);
+    }
+
+    private AVLNode<T> remove(AVLNode<T> node, T value) {
+        if (node == null) {
+            return null;
+        }
+
+        if (value.compareTo(node.getInfo()) < 0) {
+            node.setLeft(remove(node.getLeft(), value));
+        } else if (value.compareTo(node.getInfo()) > 0) {
+            node.setRight(remove(node.getRight(), value));
+        } else {
+            if (node.getLeft() == null || node.getRight() == null) {
+                node = (node.getLeft() != null) ? node.getLeft() : node.getRight();
+            } else {
+                AVLNode<T> successor = findMin(node.getRight());
+                node.setInfo(successor.getInfo());
+                node.setRight(remove(node.getRight(), successor.getInfo()));
+            }
+        }
+
+        if (node != null) {
+            updateBalanceFactor(node);
+            node = balance(node);
+        }
+        return node;
+    }
+
+    private AVLNode<T> findMin(AVLNode<T> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
 }
-
-
