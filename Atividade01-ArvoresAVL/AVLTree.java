@@ -128,26 +128,26 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
-    public void remove(T value) {
-        raiz = remove(raiz, value);
+    public void remover(T value) {
+        raiz = remover(raiz, value);
     }
 
-    private AVLNode<T> remove(AVLNode<T> node, T value) {
+    private AVLNode<T> remover(AVLNode<T> node, T value) {
         if (node == null) {
             return null;
         }
 
         if (value.compareTo(node.getInfo()) < 0) {
-            node.setLeft(remove(node.getLeft(), value));
+            node.setLeft(remover(node.getLeft(), value));
         } else if (value.compareTo(node.getInfo()) > 0) {
-            node.setRight(remove(node.getRight(), value));
+            node.setRight(remover(node.getRight(), value));
         } else {
             if (node.getLeft() == null || node.getRight() == null) {
                 node = (node.getLeft() != null) ? node.getLeft() : node.getRight();
             } else {
-                AVLNode<T> successor = findMin(node.getRight());
+                AVLNode<T> successor = findMax(node.getLeft());
                 node.setInfo(successor.getInfo());
-                node.setRight(remove(node.getRight(), successor.getInfo()));
+                node.setLeft(remover(node.getLeft(), successor.getInfo()));
             }
         }
 
@@ -158,9 +158,9 @@ public class AVLTree<T extends Comparable<T>> {
         return node;
     }
 
-    private AVLNode<T> findMin(AVLNode<T> node) {
-        while (node.getLeft() != null) {
-            node = node.getLeft();
+    private AVLNode<T> findMax(AVLNode<T> node) {
+        while (node.getRight() != null) {
+            node = node.getRight();
         }
         return node;
     }

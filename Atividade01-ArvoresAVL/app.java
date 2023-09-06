@@ -10,7 +10,7 @@ public class app {
         tree.inserir(6);
         tree.inserir(7);
 
-        tree.remove(5);
+        tree.remover(4);
 
         tree.passeioPorNivel();
 
