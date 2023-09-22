@@ -165,4 +165,24 @@ public class AVLTree<T extends Comparable<T>> {
         return node;
     }
 
+    public int calculaAltura(AVLNode<T> node){
+        int cont = 0;
+        while(node != null){
+            if (node.getFatBal() > 0){
+                cont += 1;
+                node = node.getRight();
+            } else if (node.getFatBal() < 0){
+                cont += 1;
+                node = node.getLeft();
+            } else {
+                if (raiz.getLeft() == null && raiz.getRight() == null){
+                    return cont;
+                } else {
+                    raiz = raiz.getLeft();
+                }
+            }
+        }
+        return cont;
+    }
+
 }
